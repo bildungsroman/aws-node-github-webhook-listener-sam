@@ -39,7 +39,7 @@ Resources:
         - AWSXrayWriteOnlyAccess
       Environment:
         Variables:
-          GITHUB_WEBHOOK_SECRET: handshake
+          GITHUB_WEBHOOK_SECRET: !Ref StackeryEnvConfiggithubSecretAsString
       Events:
         api1110A191:
           Type: Api
@@ -59,3 +59,9 @@ Parameters:
   StackeryEnvironmentAPIGatewayStageName:
     Type: String
     Description: Environment name used for API Gateway Stage names (injected by Stackery at deployment time)
+  StackeryEnvConfiggithubSecretAsString:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /Stackery/Environments/<StackeryEnvId>/Config/githubSecret
+Metadata:
+  StackeryEnvConfigParameters:
+    StackeryEnvConfiggithubSecretAsString: githubSecret
