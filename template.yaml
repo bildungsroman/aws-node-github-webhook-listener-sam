@@ -12,12 +12,8 @@ Resources:
         swagger: '2.0'
         info: {}
         paths:
-          webhook:
+          /webhook:
             post:
-              x-amazon-apigateway-integration:
-                httpMethod: POST
-                type: aws_proxy
-                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${function12D48103.Arn}/invocations
               responses: {}
       EndpointConfiguration: REGIONAL
     Metadata:
@@ -40,13 +36,6 @@ Resources:
       Environment:
         Variables:
           GITHUB_WEBHOOK_SECRET: !Ref StackeryEnvConfiggithubSecretAsString
-      Events:
-        api1110A191:
-          Type: Api
-          Properties:
-            Path: webhook
-            Method: POST
-            RestApiId: !Ref api1110A191
     Metadata:
       StackeryName: githubWebhookListener
 Parameters:
