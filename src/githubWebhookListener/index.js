@@ -61,8 +61,8 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   /* eslint-disable */
   console.log('Oh hai, I pushed a thing!');
   console.log('---------------------------------');
-  // console.log(`Github-Event: "${githubEvent}" on this repo: "${event.body.html_url}" - "${event.body.pusher.name}" is to blame for all our woes.`);
-  // console.log('---------------------------------');
+  console.log(`Github-Event: "${githubEvent}" on this repo: "${event.body.repository.html_url}" - "${event.body.pusher.name}" is to blame for all our woes.`);
+  console.log('---------------------------------');
   console.log('Payload', event.body);
   /* eslint-enable */
 
