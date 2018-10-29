@@ -6,7 +6,7 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   const { repository, pusher, sender } = body;
   const repo = repository.name;
   const username = pusher.name;
-  const sender = sender.login;
+  const jeff = sender.login;
   const url = repository.url;
   const sig = headers['X-Hub-Signature'];
   const githubEvent = headers['X-GitHub-Event'];
@@ -53,7 +53,7 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   console.log('---------------------------------');
   console.log(event.body);
   console.log('---------------------------------');
-  console.log(`Github-Event: "${githubEvent}" on this repo: "${repo}" at the url "${url}" - "${username}" is to blame for all our woes. Sender: "${sender}".`);
+  console.log(`Github-Event: "${githubEvent}" on this repo: "${repo}" at the url "${url}" - "${username}" is to blame for all our woes. Sender: "${jeff}".`);
   console.log('---------------------------------');
   /* eslint-enable */
 
