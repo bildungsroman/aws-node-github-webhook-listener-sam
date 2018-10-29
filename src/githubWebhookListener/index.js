@@ -49,6 +49,7 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   console.log('---------------------------------');
   console.log(event.body.ref);
   console.log('---------------------------------');
+  console.log(`Github-Event: "${githubEvent}" `);
   console.log(`Github-Event: "${githubEvent}" on this repo: "${event.body.repository.name}" - "${event.body.pusher.name}" is to blame for all our woes.`);
   console.log('---------------------------------');
   console.log('Some wisdom');
