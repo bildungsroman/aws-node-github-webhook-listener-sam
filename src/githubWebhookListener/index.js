@@ -3,7 +3,7 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   const token = process.env.GITHUB_WEBHOOK_SECRET;
   const headers = event.headers;
   const body = JSON.parse(event.body);
-  const { repository, sender } = body;
+  const { repository, pusher } = body;
   const repo = repository.name;
   const username = pusher.login;
   const sig = headers['X-Hub-Signature'];
