@@ -1,17 +1,10 @@
-const crypto = require('crypto');
-
-function signRequestBody(key, body) {
-  return `sha1=${crypto.createHmac('sha1', key).update(body, 'utf-8').digest('hex')}`;
-}
-
 module.exports.githubWebhookListener = (event, context, callback) => {
-  var errMsg; // eslint-disable-line
+  let errMsg; // eslint-disable-line
   const token = process.env.GITHUB_WEBHOOK_SECRET;
   const headers = event.headers;
   const sig = headers['X-Hub-Signature'];
   const githubEvent = headers['X-GitHub-Event'];
   const id = headers['X-GitHub-Delivery'];
-  const calculatedSig = signRequestBody(token, event.body);
 
   if (typeof token !== 'string') {
     errMsg = 'Must provide a \'GITHUB_WEBHOOK_SECRET\' env variable';
@@ -49,20 +42,12 @@ module.exports.githubWebhookListener = (event, context, callback) => {
     });
   }
 
-  if (sig !== calculatedSig) {
-    errMsg = 'X-Hub-Signature incorrect. Github webhook token doesn\'t match';
-    return callback(null, {
-      statusCode: 401,
-      headers: { 'Content-Type': 'text/plain' },
-      body: errMsg,
-    });
-  }
   /* eslint-disable */
   console.log('Oh hai, I pushed a thing!');
   console.log('---------------------------------');
   console.log('Payload', event.body);
   console.log('---------------------------------');
-  console.log(`Github-Event: "${githubEvent}" on this repo: "${event.body.repository.html_url}" - "${event.body.sender.login}" is to blame for all our woes.`);
+  console.log(`Github-Event: "${githubEvent}" on this repo: "${event.body.repository.name}" - "${event.body.pusher.name}" is to blame for all our woes.`);
   console.log('---------------------------------');
   console.log('Some wisdom');
   console.log(event.body.zen);
