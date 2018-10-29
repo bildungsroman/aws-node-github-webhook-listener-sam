@@ -2,7 +2,10 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   let errMsg; // eslint-disable-line
   const token = process.env.GITHUB_WEBHOOK_SECRET;
   const headers = event.headers;
-  const body = event.body;
+  const body = JSON.parse(event.body);
+  const { repository, sender } = body;
+  const repo = repository.name;
+  const username = pusher.login;
   const sig = headers['X-Hub-Signature'];
   const githubEvent = headers['X-GitHub-Event'];
   const id = headers['X-GitHub-Delivery'];
@@ -48,11 +51,7 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   console.log('---------------------------------');
   console.log(body);
   console.log('---------------------------------');
-  console.log(headers);
-  console.log('---------------------------------');
-  console.log(`Github-Event: "${githubEvent}" `);
-  console.log(body['ref']);
-  // console.log(`Github-Event: "${githubEvent}" on this repo: "${event.body.repository.name}" - "${event.body.pusher.name}" is to blame for all our woes.`);
+  console.log(`Github-Event: "${githubEvent}" on this repo: "${repo}" - "${username}" is to blame for all our woes.`);
   console.log('---------------------------------');
   /* eslint-enable */
 
