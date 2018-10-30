@@ -7,7 +7,8 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   const body = JSON.parse(event.body);
   // this prevents errors from the GitHub ping event
   const username = body.pusher ? body.pusher.name : body.repository.owner.login;
-
+  const message = body.pusher ? `${username} pushed this awesomeness/atrocity through (delete as necessary)` : `It's ${username}'s repo - blame them.`
+  
   const { repository } = body;
   const repo = repository.name;
   const url = repository.url;
@@ -24,7 +25,7 @@ module.exports.githubWebhookListener = (event, context, callback) => {
 
   // We'll keep logging to CloudWatch in case we need to debug
   console.log('---------------------------------');
-  console.log(`Github-Event: "${githubEvent}" on this repo: "${repo}" at the url: ${url}.\n ${username} is to blame if something was broken.`);
+  console.log(`Github-Event: "${githubEvent}" on this repo: "${repo}" at the url: ${url}.\n ${message}`);
   console.log('---------------------------------');
   console.log(event.body);
   console.log('---------------------------------');
