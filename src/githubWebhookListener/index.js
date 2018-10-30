@@ -6,7 +6,7 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   const githubEvent = headers['X-GitHub-Event'];
   const body = JSON.parse(event.body);
   // this prevents errors from the GitHub ping event
-  const username = body.pusher ? body.pusher.name : body.repository.owner.name;
+  const username = body.pusher ? body.pusher.name : body.repository.owner.login;
 
   const { repository } = body;
   const repo = repository.name;
