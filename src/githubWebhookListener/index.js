@@ -2,9 +2,9 @@ module.exports.githubWebhookListener = (event, context, callback) => {
   const token = process.env.GITHUB_WEBHOOK_SECRET;
   const headers = event.headers;
   const body = JSON.parse(event.body);
-  const { repository, pusher } = body;
+  const { repository, sender } = body;
   const repo = repository.name;
-  const username = pusher.name;
+  const username = sender.login;
   const url = repository.url;
   const githubEvent = headers['X-GitHub-Event'];
 
